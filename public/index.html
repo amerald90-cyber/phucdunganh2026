@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hệ Thống Phục Dựng Chân Dung Lịch Sử AI - Canon 4K</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Header (Clean, Professional, No Library Leak) -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="logo-group">
+        <!-- Secret double click on logo-icon toggles secret developer sample drawer -->
+        <div class="logo-icon" id="secretTrigger" title="AI Portrait Engine">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/>
+            <circle cx="12" cy="13" r="3"/>
+          </svg>
+        </div>
+        <div class="logo-text">
+          <h1>AI PORTRAIT RESTORATION STUDIO</h1>
+          <p class="tagline">Bảo tồn 100% nhận dạng giải phẫu học • Mô phỏng máy ảnh Canon Full-Frame 4K</p>
+        </div>
+      </div>
+      
+      <div class="header-actions">
+        <div class="engine-badge">
+          <span class="engine-dot"></span>
+          <span>Canon Neural Core 4K</span>
+        </div>
+        <button id="btnOpenPromptModal" class="btn btn-secondary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <line x1="16" y1="13" x2="8" y2="13"/>
+            <line x1="16" y1="17" x2="8" y2="17"/>
+          </svg>
+          Tiêu Chuẩn Phục Dựng
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="main-container">
+    <div class="workspace-grid">
+      <!-- Left Column: Visual Stage -->
+      <section class="stage-column">
+        <!-- Top Controls Bar -->
+        <div class="stage-controls-bar">
+          <div class="view-mode-tabs" id="viewModeTabs">
+            <button class="mode-tab active" data-view="split">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="3" width="18" height="18" rx="2"/>
+                <line x1="12" y1="3" x2="12" y2="21"/>
+              </svg>
+              Thanh Trượt Before / After
+            </button>
+            <button class="mode-tab" data-view="side">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="2" y="3" width="9" height="18" rx="1"/>
+                <rect x="13" y="3" width="9" height="18" rx="1"/>
+              </svg>
+              Song Song
+            </button>
+            <button class="mode-tab" data-view="fade">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="9"/>
+                <path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/>
+              </svg>
+              Mờ Dần (Fade)
+            </button>
+            <button class="mode-tab" id="btnToggleLoupe" title="Kính lúp soi lỗ chân lông & mắt">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"/>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                <line x1="11" y1="8" x2="11" y2="14"/>
+                <line x1="8" y1="11" x2="14" y2="11"/>
+              </svg>
+              Kính Lúp 4K
+            </button>
+          </div>
+
+          <div class="stage-actions">
+            <button id="btnResetView" class="icon-btn" title="Đặt lại góc nhìn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="1 4 1 10 7 10"/>
+                <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>
+              </svg>
+            </button>
+            <button id="btnFullscreen" class="icon-btn" title="Xem toàn màn hình">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- AI Processing Status Alert (Professional, no library leak) -->
+        <div id="aiStatusAlert" class="match-alert hidden">
+          <div class="alert-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+              <polyline points="22 4 12 14.01 9 11.01"/>
+            </svg>
+          </div>
+          <div class="alert-content">
+            <div class="alert-title" id="aiAlertTitle">Phục dựng AI hoàn tất (Độ tương đồng 100%)</div>
+            <div class="alert-desc" id="aiAlertDesc">Bảo tồn trọn vẹn 20 chỉ số giải phẫu • Tái hiện chất lượng Canon Full-frame 4K</div>
+          </div>
+          <div id="versionSwitcher" class="version-pills hidden"></div>
+        </div>
+
+        <!-- Comparison Stage Area -->
+        <div class="comparison-stage" id="comparisonStage">
+          <!-- Drop Zone (Initial State) -->
+          <div class="drop-zone" id="dropZone">
+            <div class="drop-zone-content">
+              <div class="drop-icon">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                  <polyline points="17 8 12 3 7 8"/>
+                  <line x1="12" y1="3" x2="12" y2="15"/>
+                </svg>
+              </div>
+              <h3>Tải Lên Ảnh Chân Dung Cũ Cần Phục Dựng</h3>
+              <p>Hỗ trợ ảnh gia đình, ảnh thờ, ảnh đen trắng, ảnh mờ mốc, ảnh scan hoặc tranh vẽ lịch sử</p>
+              <div class="drop-or">hoặc</div>
+              <label class="btn btn-primary file-input-label">
+                <input type="file" id="fileInput" accept="image/*" hidden>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                  <circle cx="8.5" cy="8.5" r="1.5"/>
+                  <polyline points="21 15 16 10 5 21"/>
+                </svg>
+                Chọn Ảnh Từ Máy Tính
+              </label>
+              <div class="drop-hint">
+                Chế độ tự động: Nhận diện cấu trúc giải phẫu • Bảo tồn 100% đường nét gốc
+              </div>
+            </div>
+          </div>
+
+          <!-- Preview Stage (When image is loaded, waiting for user to click Restore) -->
+          <div class="view-container ready-view hidden" id="readyViewContainer">
+            <div class="ready-img-box">
+              <img id="imgReadyPreview" src="" alt="Ảnh gốc đã chọn">
+              <!-- AI Scanner Line Effect -->
+              <div class="laser-scanner hidden" id="laserScanner"></div>
+              <!-- AI Landmark Tracking Points -->
+              <div class="facial-mesh-overlay hidden" id="facialMesh">
+                <div class="mesh-point p1"></div>
+                <div class="mesh-point p2"></div>
+                <div class="mesh-point p3"></div>
+                <div class="mesh-point p4"></div>
+                <div class="mesh-point p5"></div>
+                <div class="mesh-box"></div>
+              </div>
+            </div>
+            
+            <!-- Floating Launch Button -->
+            <div class="ready-cta-box" id="readyCtaBox">
+              <button id="btnStartRestoration" class="btn btn-magic">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+                </svg>
+                TIẾN HÀNH PHỤC DỰNG AI (CANON 4K)
+              </button>
+              <div class="cta-note">Nhấn để quét giải phẫu và phục chế từng chi tiết</div>
+            </div>
+          </div>
+
+          <!-- Slider View Mode -->
+          <div class="view-container split-view hidden" id="splitViewContainer">
+            <div class="image-wrapper original-wrapper">
+              <img id="imgOriginalSplit" src="" alt="Ảnh gốc">
+              <span class="label-pill label-left">ẢNH GỐC CŨ</span>
+            </div>
+            <div class="image-wrapper restored-wrapper" id="restoredWrapper">
+              <img id="imgRestoredSplit" class="restored-img-reveal" src="" alt="Ảnh đã phục dựng">
+              <span class="label-pill label-right">PHỤC DỰNG AI (CANON 4K)</span>
+            </div>
+            <!-- Slider Handle -->
+            <div class="slider-handle" id="sliderHandle">
+              <div class="handle-line"></div>
+              <div class="handle-button">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <polyline points="15 18 9 12 15 6"/>
+                </svg>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <polyline points="9 18 15 12 9 6"/>
+                </svg>
+              </div>
+              <div class="handle-line"></div>
+            </div>
+          </div>
+
+          <!-- Side-by-Side View Mode -->
+          <div class="view-container side-view hidden" id="sideViewContainer">
+            <div class="side-panel">
+              <div class="panel-header">Ảnh Gốc Cũ</div>
+              <div class="side-img-box">
+                <img id="imgOriginalSide" src="" alt="Ảnh gốc">
+              </div>
+            </div>
+            <div class="side-panel">
+              <div class="panel-header">Ảnh Phục Dựng AI (Canon 4K)</div>
+              <div class="side-img-box">
+                <img id="imgRestoredSide" class="restored-img-reveal" src="" alt="Ảnh phục dựng">
+              </div>
+            </div>
+          </div>
+
+          <!-- Fade View Mode -->
+          <div class="view-container fade-view hidden" id="fadeViewContainer">
+            <div class="fade-stack">
+              <img id="imgOriginalFade" class="fade-bg" src="" alt="Ảnh gốc">
+              <img id="imgRestoredFade" class="fade-fg restored-img-reveal" src="" alt="Ảnh phục dựng">
+            </div>
+            <div class="fade-slider-bar">
+              <span>Ảnh Gốc (0%)</span>
+              <input type="range" id="fadeRange" min="0" max="100" value="100">
+              <span>Phục Dựng AI (100%)</span>
+            </div>
+          </div>
+
+          <!-- Magnifier Loupe Glass -->
+          <div class="loupe-glass hidden" id="loupeGlass">
+            <div class="loupe-crosshair"></div>
+          </div>
+
+          <!-- Cinematic AI Progress Overlay ("Từ Từ Xuất Hiện") -->
+          <div class="stage-ai-overlay hidden" id="stageAiOverlay">
+            <div class="ai-hud-card">
+              <div class="hud-top">
+                <div class="hud-title-wrap">
+                  <div class="hud-pulse"></div>
+                  <span class="hud-title">TIẾN TRÌNH PHỤC DỰNG AI ĐANG CHẠY</span>
+                </div>
+                <span class="hud-percent" id="hudPercent">0%</span>
+              </div>
+
+              <!-- Animated Progress Track -->
+              <div class="hud-progress-track">
+                <div class="hud-progress-bar" id="hudProgressBar"></div>
+              </div>
+
+              <!-- Live Step Description -->
+              <div class="hud-status-text" id="hudStatusText">
+                Khởi động mạng nơ-ron phân tích giải phẫu học...
+              </div>
+
+              <!-- Neural Matrix Subtext -->
+              <div class="hud-sub-matrix">
+                <span>Mô hình: Canon-Neural-4K</span>
+                <span>Bảo tồn: 100%</span>
+                <span>Khử nhiễu: Chuẩn Studio</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom Action Bar -->
+        <div class="stage-footer-bar">
+          <div class="footer-left">
+            <button id="btnNewUpload" class="btn btn-outline">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="17 8 12 3 7 8"/>
+                <line x1="12" y1="3" x2="12" y2="15"/>
+              </svg>
+              Chọn Ảnh Khác
+            </button>
+            <button id="btnRerun" class="btn btn-outline hidden">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="1 4 1 10 7 10"/>
+                <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>
+              </svg>
+              Phục Dựng Lại
+            </button>
+          </div>
+
+          <div class="footer-right">
+            <button id="btnDownloadRestored" class="btn btn-primary" disabled>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="7 10 12 15 17 10"/>
+                <line x1="12" y1="15" x2="12" y2="3"/>
+              </svg>
+              Tải Ảnh Phục Dựng 4K
+            </button>
+            <button id="btnDownloadComparison" class="btn btn-secondary" disabled>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                <line x1="8" y1="21" x2="16" y2="21"/>
+                <line x1="12" y1="17" x2="12" y2="21"/>
+              </svg>
+              Tải Ảnh So Sánh Ghép Đôi
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Right Column: Professional Controls & 20 Criteria -->
+      <aside class="control-column">
+        <!-- Mode Switcher Card -->
+        <div class="card mode-card">
+          <div class="card-header">
+            <h3>CHẾ ĐỘ PHỤC DỰNG</h3>
+            <span class="badge">Canon 4K</span>
+          </div>
+          <div class="mode-options">
+            <label class="mode-option active">
+              <input type="radio" name="restoreMode" value="standard" checked>
+              <div class="mode-option-content">
+                <div class="mode-name">1. Chân Dung Chuẩn (Canon Full-Frame)</div>
+                <div class="mode-desc">Bảo tồn 100% tỷ lệ khuôn mặt, tuổi tác, nếp nhăn, da có lỗ chân lông tự nhiên.</div>
+              </div>
+            </label>
+
+            <label class="mode-option">
+              <input type="radio" name="restoreMode" value="memorial">
+              <div class="mode-option-content">
+                <div class="mode-name">2. Ảnh Thờ Trang Nghiêm (Mở Rộng Vai & Ngực)</div>
+                <div class="mode-desc">Căn giữa, mở rộng vai tự nhiên chuẩn giải phẫu, nền trung tính xám/xanh.</div>
+              </div>
+            </label>
+
+            <label class="mode-option">
+              <input type="radio" name="restoreMode" value="outdoor">
+              <div class="mode-option-content">
+                <div class="mode-name">3. Ngoại Cảnh Chân Thực (Canon 85mm Bokeh)</div>
+                <div class="mode-desc">Ánh sáng tự nhiên mềm, nền cây xanh xóa phông bokeh dịu mắt.</div>
+              </div>
+            </label>
+
+            <label class="mode-option">
+              <input type="radio" name="restoreMode" value="painting">
+              <div class="mode-option-content">
+                <div class="mode-name">4. Tranh Vẽ Lịch Sử Sang Người Thật</div>
+                <div class="mode-desc">Phân tích hình học tranh cổ, giữ nguyên nhận dạng, tạo ảnh người thật.</div>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <!-- 20 Anatomical Criteria Card -->
+        <div class="card criteria-card">
+          <div class="card-header">
+            <div class="title-with-badge">
+              <h3>BẢO TỒN 20 CHỈ SỐ GIẢI PHẪU</h3>
+              <span class="badge-success">100% Khớp</span>
+            </div>
+            <button id="btnToggleCriteria" class="text-btn">Thu gọn</button>
+          </div>
+          <div class="criteria-summary">
+            <div class="summary-metric">
+              <div class="metric-val">100%</div>
+              <div class="metric-label">Bảo tồn nhận dạng</div>
+            </div>
+            <div class="summary-metric">
+              <div class="metric-val">0%</div>
+              <div class="metric-label">Trẻ hóa quá mức</div>
+            </div>
+            <div class="summary-metric">
+              <div class="metric-val">4K</div>
+              <div class="metric-label">Canon Full-frame</div>
+            </div>
+          </div>
+          <div class="criteria-list" id="criteriaList">
+            <!-- Populated dynamically -->
+          </div>
+        </div>
+
+        <!-- Golden Rule Card -->
+        <div class="card golden-rule-card">
+          <div class="golden-rule-header">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#eab308" stroke-width="2">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+            </svg>
+            <span>NGUYÊN TẮC TỐI THƯỢNG</span>
+          </div>
+          <p class="golden-rule-text">
+            Nếu phải lựa chọn giữa: <b>“Ảnh đẹp hơn”</b> và <b>“Giống ảnh gốc hơn”</b> → LUÔN CHỌN: <b>GIỐNG ẢNH GỐC HƠN</b>.
+          </p>
+        </div>
+
+        <!-- Prompt Snippet Card -->
+        <div class="card prompt-snippet-card">
+          <div class="card-header">
+            <h3>LỆNH PHỤC DỰNG CHUYÊN GIA</h3>
+            <button id="btnCopyPrompt" class="btn btn-sm btn-outline">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+              </svg>
+              Sao Chép
+            </button>
+          </div>
+          <div class="prompt-preview" id="promptPreview">
+            chuyên gia phục dựng ảnh hãy giữ nguyên mọi đường nét khuôn mặt , mô tả phục dựng lại ảnh này, giống 100% nhưng sống động như vừa mới chụp bằng máy ảnh canon 4k , ảnh màu
+          </div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <!-- Prompt Modal -->
+  <div class="modal hidden" id="promptModal">
+    <div class="modal-backdrop" id="promptBackdrop"></div>
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <h2>TOÀN VĂN QUY TẮC & PROMPT CHUYÊN GIA</h2>
+          <p>Hệ thống chỉ thị chi tiết áp dụng cho mọi lượt phục dựng</p>
+        </div>
+        <button class="modal-close" id="btnClosePrompt">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="prompt-tabs">
+          <button class="prompt-tab active" data-pmode="standard">Chân Dung Chuẩn</button>
+          <button class="prompt-tab" data-pmode="memorial">Ảnh Thờ Mở Rộng Vai</button>
+          <button class="prompt-tab" data-pmode="outdoor">Ngoại Cảnh 85mm</button>
+          <button class="prompt-tab" data-pmode="painting">Tranh Vẽ Lịch Sử</button>
+        </div>
+        <pre class="prompt-full-text" id="promptFullText"></pre>
+      </div>
+      <div class="modal-footer">
+        <button id="btnCopyFullPrompt" class="btn btn-primary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+          </svg>
+          Sao Chép Toàn Bộ Chỉ Thị
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECRET DRAWER (Discreet Test Panel - Only triggers via double-click on logo or Ctrl+Shift+S) -->
+  <div class="secret-drawer hidden" id="secretDrawer">
+    <div class="secret-header">
+      <span>🔒 QUẢN TRỊ BẢN MẪU (CHỈ DÀNH CHO BẠN)</span>
+      <button class="secret-close" id="btnCloseSecret">&times;</button>
+    </div>
+    <p class="secret-sub">Chọn nhanh nhân vật để kiểm tra quy trình phục dựng ngầm:</p>
+    <div class="secret-list" id="secretList">
+      <!-- Populated in JS -->
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
