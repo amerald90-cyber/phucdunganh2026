@@ -10,7 +10,9 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-const LIBRARY_DIR = path.join(__dirname, 'chân dung nhà giáo');
+const LIBRARY_DIR = fs.existsSync(path.join(__dirname, 'public', 'library-images'))
+  ? path.join(__dirname, 'public', 'library-images')
+  : path.join(__dirname, 'chân dung nhà giáo');
 const UPLOADS_DIR = path.join(__dirname, 'uploads');
 const RESTORED_DIR = path.join(__dirname, 'restored');
 
