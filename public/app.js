@@ -453,10 +453,10 @@ const EMBEDDED_LIBRARY = {
       "name": "Trần Phú",
       "cleanName": "tran phu",
       "original": {
-        "filename": "Trần Phú.png",
-        "url": "/library-images/Tr%E1%BA%A7n%20Ph%C3%BA.png",
-        "size": 865630,
-        "hash": "d473319f40c99cf9f5564afdb8ad85068dd069c8e682fb78475bae33c6650b50",
+        "filename": "Trần Phú.jpe",
+        "url": "/library-images/Tr%E1%BA%A7n%20Ph%C3%BA.jpe",
+        "size": 30187,
+        "hash": "efadc45ba42799d7468772b6ac2be2efd74a13a43ec929b311bf002449005efa",
         "isRestored": false,
         "version": 0
       },
@@ -657,7 +657,7 @@ const EMBEDDED_LIBRARY = {
     "8e11f3fa5ef7c466a7a8f7b4ba729e4789efd8a420e1fc39831d1826eb7ca83b": "Phạm Văn Đồng",
     "f62237c037d389ee528aa010421c62296a6b9baf144d3d98d4dfd402338ed795": "Quý Đôn",
     "1887d6d7091ae3b8622652e79712f1738c392990dec44eaba17d230c37c74e89": "Ton that tung",
-    "d473319f40c99cf9f5564afdb8ad85068dd069c8e682fb78475bae33c6650b50": "Trần Phú",
+    "efadc45ba42799d7468772b6ac2be2efd74a13a43ec929b311bf002449005efa": "Trần Phú",
     "2d6b5d90fe53c08eaabea13d907503efae0414619edc80bbf12baf10f76fe3e6": "Trần Quý Cáp",
     "cf6045fb25f42b2680f51f66525f8c3ab202c69826b220aefb36e87c6c7a6af1": "Trần Đại Nghĩa",
     "f615865f14f072e1367dba60225560c603f0a6699a841c2e6e7d609787d71399": "Vũ Tông Phan",
